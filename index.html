@@ -1,0 +1,129 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Be My Valentine 💖</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #ffe6eb;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    h1 {
+      margin-top: 80px;
+      color: #d6336c;
+    }
+
+    .buttons {
+      margin-top: 40px;
+      position: relative;
+      height: 200px;
+    }
+
+    button {
+      padding: 15px 30px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    #yes {
+      background-color: #ff4d6d;
+      color: white;
+    }
+
+    #no {
+      background-color: #6c757d;
+      color: white;
+      position: absolute;
+    }
+
+    .taunt {
+      position: fixed;
+      font-size: 16px;
+      color: #555;
+      pointer-events: none;
+      animation: fade 1.5s forwards;
+    }
+
+    @keyframes fade {
+      0% { opacity: 1; }
+      100% { opacity: 0; transform: translateY(-20px); }
+    }
+
+    .balloon {
+      position: fixed;
+      bottom: -100px;
+      font-size: 30px;
+      animation: float 4s linear infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-120vh); }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Will you be my Valentine? 💘</h1>
+
+  <div class="buttons">
+    <button id="yes">Yes 💕</button>
+    <button id="no">No 😅</button>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("no");
+    const yesBtn = document.getElementById("yes");
+
+    function moveNo() {
+      const x = Math.random() * (window.innerWidth - 120);
+      const y = Math.random() * (window.innerHeight - 120);
+
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+
+      const taunt = document.createElement("div");
+      taunt.className = "taunt";
+      taunt.innerText = "Nope 😂";
+      taunt.style.left = (x + 10) + "px";
+      taunt.style.top = (y - 10) + "px";
+      document.body.appendChild(taunt);
+
+      setTimeout(() => taunt.remove(), 1500);
+    }
+
+    // Desktop hover
+    noBtn.addEventListener("mouseover", moveNo);
+
+    // Mobile tap dodge
+    noBtn.addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      moveNo();
+    });
+
+    yesBtn.addEventListener("click", () => {
+      for (let i = 0; i < 30; i++) {
+        const balloon = document.createElement("div");
+        balloon.className = "balloon";
+        balloon.innerHTML = "🎈";
+        balloon.style.left = Math.random() * window.innerWidth + "px";
+        balloon.style.animationDuration = (Math.random() * 2 + 3) + "s";
+        document.body.appendChild(balloon);
+
+        setTimeout(() => balloon.remove(), 5000);
+      }
+
+      setTimeout(() => {
+        alert("Yaaay! 💖 You're my Valentine 😍");
+      }, 400);
+    });
+  </script>
+
+</body>
+</html>
